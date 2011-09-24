@@ -1,0 +1,61 @@
+function newt_load(o){
+  
+  var e = null;
+  var n;
+  
+  if( typeof o  == "object" ){
+    e = o.element;
+    n = o.newtid;
+  }else{
+    n = o;
+  }
+  
+  jQuery.ajax({
+    url: 'http://localhost:3000/newton/' + n,
+    cache: true,
+    crossDomain: true,
+    dataType: 'jsonp',
+    success: function(c){
+      
+      if(e){
+        $(e).html(c);
+      }else{
+        $('#newt-' + n).html(c);
+      }
+      
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+      console.log( errorThrown );
+    }
+  });    
+  
+}
+
+function load_newts(){
+  
+  $('[id^=newt]').each( function(i, e) {
+
+    var n;
+    var s;
+
+    n = $(e).attr('id');
+    s = n.split('-');
+
+    var o = {newtid:s[1], element:e};
+    
+    console.log( 'found newt #' + (i+1) + ': ' + s[1] );
+    
+    newt_load(o);
+  
+  });   
+}  
+
+jQuery(document).ready(function() {  
+  var newt_inline = false;
+  try{
+    if(load_newts_inline){newt_inline = true;}
+  }catch(err){}
+  if(newt_inline == false){
+    load_newts();
+  }
+});  

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  uniq_id: 1
+  uniq_secret: MyString
+  content: MyText
+
+two:
+  uniq_id: 1
+  uniq_secret: MyString
+  content: MyText

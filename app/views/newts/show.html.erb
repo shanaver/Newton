@@ -1,0 +1,25 @@
+<p>
+  <b>Title:</b>
+  <%= @newt.title %>
+</p>
+
+<p>
+  <b>ID:</b>
+  <%= @newt.uniq_id %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @newt.content %>
+</p>
+
+</p>
+<textarea style="width:800px;height:80px">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+<script src="<%= get_newton_script_url %>" type="text/javascript"></script>
+<div id="newt-<%= @newt.uniq_id %>"></div>
+</textarea>
+</p>
+
+<%= link_to 'Edit', edit_newton_path(:id => @newt.uniq_id, :secret => @newt.uniq_secret) %> |
+<%= link_to 'Back', newts_path %>

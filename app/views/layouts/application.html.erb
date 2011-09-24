@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Newton</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+  <%= yield(:javascript_includes) %>
+<body>
+<% if notice.present? || alert.present? %>
+  <div id="flash">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  </div>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

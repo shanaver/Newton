@@ -1,0 +1,27 @@
+<h1>Newts</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>ID</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @newts.each do |newt| %>
+  <tr>
+    <td><%= newt.title %></td>
+    <td><%= newt.uniq_id %></td>
+    <td><%= newt.content[0..20] %> <% if newt.content.length > 20 then %>...<% end %></td>
+    <td><%= link_to 'Show', newt %></td>
+    <td><%= link_to 'Edit', edit_newton_path(:id => newt.uniq_id, :secret => newt.uniq_secret) %></td>
+    <td><%= link_to 'Destroy', newt, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Create a Newt', new_newt_path %>

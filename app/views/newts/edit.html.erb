@@ -1,0 +1,14 @@
+<h1>Editing <%= @newt.title %></h1>
+
+<% if params[:id].present? && params[:secret].present? %>
+  <% if params[:id] == @newt.uniq_id && params[:secret] == @newt.uniq_secret %>
+    <%= render 'form' %>
+  <% else %>
+    <h3>ID or Secret is incorrect.  You cannot edit this newt without the correct ID and Secret</h3>
+  <% end %>
+<% else %>
+  <h3>ID or Secret missing.  You cannot edit this newt without them</h3>
+<% end %>
+
+<%= link_to 'Show', @newt %> |
+<%= link_to 'Back', newts_path %>

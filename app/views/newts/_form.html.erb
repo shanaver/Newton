@@ -1,0 +1,48 @@
+<% content_for :javascript_includes do %>
+<script>
+  function add_lorem(){
+    var lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel est leo. Praesent in justo quis tortor sollicitudin hendrerit sit amet vel quam. Nulla sit amet tellus et dui faucibus fermentum.\n';
+    var textarea = $(":input[name='newt[content]']");
+    var content = textarea.val();
+    textarea.val(content + lorem);
+    return false;
+  }
+  $(document).ready(function() {
+    $('#lorem').click(function() {
+      add_lorem();
+    });
+  });
+</script>
+<% end %>
+<%= form_for(@newt) do |f| %>
+  <% if @newt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@newt.errors.count, "error") %> prohibited this newt from being saved:</h2>
+
+      <ul>
+      <% @newt.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @newt.uniq_id.present? %>
+  <%= f.hidden_field :uniq_id %>
+  <% end %>
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :content %> <a href="javascript: void(0);" id="lorem">Add Lorem Ipsum</a><br />
+    <%= f.text_area :content %>
+  </div>
+  <div class="field">
+    <label for="editor">Editor Email</label><br />
+    <%= text_field :user, :email, :value => (@user.email rescue '') %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

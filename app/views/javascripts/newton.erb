@@ -15,6 +15,9 @@ function newt_load(o){
     cache: true,
     crossDomain: true,
     dataType: 'jsonp',
+    accepts: {
+        json: "application/json"
+    },
     success: function(c){
       
       if(e){

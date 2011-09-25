@@ -22,6 +22,7 @@ class NewtsController < ApplicationController
     @newt = Newt.find_by_uniq_id(params[:id])
 
     respond_to do |format|
+      #format.html # show.html.erb
       format.json  { render :json =>  @newt.content.to_json, :callback => params[:callback] }
     end
   end

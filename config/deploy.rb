@@ -4,12 +4,12 @@ set :deploy_location, "production"
  
 if "#{deploy_location}" == "production"
  set :application, "newtonapp.com"
- set :ipaddress, "174.143.243.138"
+ set :ipaddress, "174.143.150.156"
  set :branch, "master"
 else
  set :deploy_location, "staging" 
  set :application, "dev.newtonapp.com"
- set :ipaddress, "174.143.243.138"
+ set :ipaddress, "174.143.150.156"
  set :branch, "master"
 end
 

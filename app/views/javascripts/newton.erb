@@ -16,11 +16,7 @@ function newt_load(o){
     type: "GET",
     crossDomain: true,
     dataType: 'jsonp',
-    accepts: {
-        text: "text/html",
-        json: "application/json",
-        all: "*/*"
-    },
+    accepts: { all: "*/*" },
     success: function(c){
       
       if(e){

@@ -23,7 +23,10 @@ class NewtsController < ApplicationController
 
     respond_to do |format|
       #format.html # show.html.erb
-      format.json  { render :json =>  @newt.content.to_json, :callback => params[:callback] }
+      format.json  { 
+        response.headers["Content-Type"] = 'application/json'
+        render :json =>  @newt.content.to_json, :callback => params[:callback] 
+      }
     end
   end
 

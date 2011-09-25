@@ -36,36 +36,31 @@ set :ssh_options, {:forward_agent => true, :port => "20022"}
 set :user, "root"
 set :use_sudo, "false"
 
-namespace :deploy do
-    
-  desc "Link to the uploads dir"
-  task :after_symlink, :roles => :app do
-    cleanup
+
+desc "after_symlink cleanup"
+after 'deploy:symlink', :roles => :app do
+  deploy.cleanup
+end
+
+
+#############################################################
+#	Custom Server Tasks
+#############################################################
+
+# overwrite the old capistrano restart procedure
+desc "Restart Application"
+deploy.task :restart, :roles => :web do
+  if rails_env == 'production'
+    invoke_command "apache2ctl graceful", :via => run_method
   end
+end
 
-  # desc "Creates and links the shared directories"   
-  # task :create_symlinks, :roles => :app do
-  #   run "rm -rf #{release_path}/media"
-  #   run "ln -nfs #{shared_path}/media #{release_path}/media"
-  #   run "rm -rf #{release_path}/var"
-  #   run "ln -nfs #{shared_path}/var #{release_path}/var"
-  #   run "rm -rf #{release_path}/export"
-  #   run "ln -nfs #{shared_path}/export #{release_path}/export"
-  # end
-  
-  # desc "redirect all traffic to maintenance.html"
-  # task :maintenance_redirect_on, :roles => :app do  
-  #    run "rm /var/www/#{application}/current/.htaccess"
-  #    run "cp /var/www/#{application}/current/.htaccess.maintenance /var/www/#{application}/current/.htaccess"
-  # end
-  # 
-  # desc "remove maintenance redirect"
-  # task :maintenance_redirect_off, :roles => :app do  
-  #    set_htaccess
-  # end
-  
-   task :restart do
-    #do nothing
-   end
-
+# add apache tasks to cap commands
+namespace :apache do
+  [:stop, :start, :restart, :reload, :graceful, :configtest].each do |action|
+    desc "#{action.to_s.capitalize} Apache"
+    task action, :roles => :web do
+      invoke_command "apache2ctl #{action.to_s}", :via => run_method
+    end
+  end
 end

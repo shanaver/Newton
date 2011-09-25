@@ -16,7 +16,9 @@ function newt_load(o){
     crossDomain: true,
     dataType: 'jsonp',
     accepts: {
-        json: "application/json"
+        text: "text/html",
+        json: "application/json",
+        all: "*/*"
     },
     success: function(c){
       
@@ -28,6 +30,7 @@ function newt_load(o){
       
     },
     error: function(jqXHR, textStatus, errorThrown){
+      console.log( jqXHR );
       console.log( errorThrown );
     }
   });    

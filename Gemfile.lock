@@ -54,6 +54,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mysql (2.8.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -100,6 +101,7 @@ DEPENDENCIES
   capistrano
   devise
   jquery-rails
+  mysql (= 2.8.1)
   rails (= 3.0.3)
   ruby-mysql
   sqlite3-ruby

@@ -11,7 +11,7 @@ function newt_load(o){
   }
   
   jQuery.ajax({
-    url: 'http://localhost:3000/newton/' + n,
+    url: 'http://<%= DOMAIN %>/newt/' + n,
     cache: true,
     crossDomain: true,
     dataType: 'jsonp',

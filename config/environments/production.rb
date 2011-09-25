@@ -47,6 +47,6 @@ Newton::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
   
-  DOMAIN = 'newtonapp.com'
+  DOMAIN = 'www.newtonapp.com'
   config.action_mailer.default_url_options = { :host => DOMAIN }
 end

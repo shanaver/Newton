@@ -14,11 +14,12 @@
   });
 </script>
 <% end %>
-<%= form_for(@newt) do |f| %>
-  <% if @newt.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@newt.errors.count, "error") %> prohibited this newt from being saved:</h2>
 
+<% content_for :alert_content do %>
+  <% if @newt.errors.any? %>
+    <div class="alert-message block-message error fade in" data-alert="alert">
+      <a class="close" href="#">×</a>
+      <strong><%= pluralize(@newt.errors.count, "error") %> prohibited this newt from being saved:</strong>
       <ul>
       <% @newt.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -26,23 +27,33 @@
       </ul>
     </div>
   <% end %>
+<% end %>
 
+<%= form_for(@newt) do |f| %>
   <% if @newt.uniq_id.present? %>
   <%= f.hidden_field :uniq_id %>
   <% end %>
-  <div class="field">
+  <div class="clearfix">
     <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <div class="input"><%= f.text_field :title, :class => 'xlarge' %></div>
   </div>
-  <div class="field">
-    <%= f.label :content %> <a href="javascript: void(0);" id="lorem">Add Lorem Ipsum</a><br />
-    <%= f.text_area :content %>
+  <div class="clearfix">
+    <%= f.label :content %>
+    <div class="input">
+      <%= f.text_area :content, :class => 'xxlarge' %>
+      <span class="help-block"><span class="label"><a href="javascript: void(0);" id="lorem">Add Lorem Ipsum</a></span></span>
+    </div>
   </div>
-  <div class="field">
+  <div class="clearfix">
     <label for="editor">Editor Email</label><br />
-    <%= text_field :user, :email, :value => (@user.email rescue '') %>
+    <div class="input">
+      <div class="input-prepend">
+        <span class="add-on">@</span>
+        <%= text_field :user, :email, :value => (@user.email rescue '') %>
+      </div>
+    </div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Submit', :class => 'btn primary' %>
   </div>
 <% end %>

@@ -10,5 +10,7 @@
   <h3>ID or Secret missing.  You cannot edit this newt without them</h3>
 <% end %>
 
-<%= link_to 'Show', @newt %> |
-<%= link_to 'Back', newts_path %>
+<% content_for :sidebar_content do %>
+<%= link_to 'Show', @newt, :class => 'btn' %> 
+<%= link_to 'Back', newts_path, :class => 'btn' %>
+<% end %>

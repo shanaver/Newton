@@ -1,3 +1,7 @@
+<style>
+  #newt {width:500px;border:1px solid #bebebe;padding:6px;color:#666;}
+</style>
+
 <p>
   <b>Title:</b>
   <%= @newt.title %>
@@ -8,9 +12,9 @@
   <%= @newt.uniq_id %>
 </p>
 
-<p style="width:700px">
+<p style="width:700px;">
   <b>Content:</b>
-  <%= @newt.content %>
+  <div id="newt"><%= raw(@newt.content) %></div>
 </p>
 
 </p>
@@ -21,5 +25,9 @@
 </textarea>
 </p>
 
-<%= link_to 'Edit', edit_newton_path(:id => @newt.uniq_id, :secret => @newt.uniq_secret) %> |
-<%= link_to 'Back', newts_path %>
+<% content_for :sidebar_content do %>
+<%= link_to 'Edit', edit_newton_path(:id => @newt.uniq_id, :secret => @newt.uniq_secret), :class => 'btn' %> 
+<%= link_to 'Back', newts_path, :class => 'btn' %>
+<% end %>
+
+

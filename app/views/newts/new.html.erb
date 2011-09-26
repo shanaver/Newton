@@ -2,4 +2,6 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Back', newts_path %>
+<% content_for :sidebar_content do %>
+<%= link_to 'Back', newts_path, :class => 'btn' %>
+<% end %>

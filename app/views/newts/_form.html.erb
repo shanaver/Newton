@@ -1,8 +1,9 @@
 <% content_for :javascript_includes do %>
 <script>
+  CKEDITOR.config.jqueryOverrideVal = true;
   function add_lorem(){
     var lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel est leo. Praesent in justo quis tortor sollicitudin hendrerit sit amet vel quam. Nulla sit amet tellus et dui faucibus fermentum.\n';
-    var textarea = $(":input[name='newt[content]']");
+    var textarea = $("#newt_content");
     var content = textarea.val();
     textarea.val(content + lorem);
     return false;
@@ -13,6 +14,7 @@
     });
   });
 </script>
+<%= javascript_include_tag "/javascripts/ckeditor/ckeditor.js" %>
 <% end %>
 
 <% content_for :alert_content do %>
@@ -40,7 +42,7 @@
   <div class="clearfix">
     <%= f.label :content %>
     <div class="input">
-      <%= f.text_area :content, :class => 'xxlarge' %>
+      <%= f.cktext_area :content, :toolbar => 'Simple' %>
       <span class="help-block"><span class="label"><a href="javascript: void(0);" id="lorem">Add Lorem Ipsum</a></span></span>
     </div>
   </div>

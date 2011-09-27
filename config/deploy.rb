@@ -1,6 +1,7 @@
 #set :deploy_location, Proc.new { deploy_location = Capistrano::CLI.ui.ask "Enter deploy location (staging/production)" }
-
 set :deploy_location, "production"
+
+require 'bundler/capistrano'
  
 if "#{deploy_location}" == "production"
  set :application, "newtonapp.com"
@@ -29,7 +30,7 @@ set :checkout, "export"
 #set :scm_password, Proc.new { Capistrano::CLI.password_prompt("SVN Password for #{scm_username}: ")}
 
 # saves space by only keeping last 3 when running cleanup
-set :keep_releases, 3
+set :keep_releases, 6
 
 default_run_options[:pty] = true
 set :ssh_options, {:forward_agent => true, :port => "20022"}

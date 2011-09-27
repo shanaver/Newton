@@ -1,8 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '~> 3.1'
 gem 'jquery-rails'
 gem 'devise'
+
+gem 'ckeditor'#, '3.6.2' :git => 'https://github.com/galetahub/ckeditor.git'
+
+  gem 'paperclip'
+# gem 'paperclip-aws'
+
+# gem 'postmark-rails'
 
 group :production do
   gem 'mysql', '2.8.1'

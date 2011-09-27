@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1'
+#gem 'rails', '~> 3.1'
+gem 'rails', '3.0.3'
 gem 'jquery-rails'
 gem 'devise'
 
@@ -20,4 +21,3 @@ group :test, :development do
   gem 'capistrano'
   gem 'sqlite3-ruby', :require => 'sqlite3'
 end
-

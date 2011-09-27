@@ -2,6 +2,10 @@ source 'http://rubygems.org'
 
 #gem 'rails', '~> 3.1'
 gem 'rails', '3.0.3'
+
+# for server compatibility
+gem 'rack', '1.2.1'
+
 gem 'jquery-rails'
 gem 'devise'
 

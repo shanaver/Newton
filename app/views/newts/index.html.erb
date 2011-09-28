@@ -16,16 +16,9 @@
       <small><%= newt.title %></small>
       <blockquote><p><%= raw(newt.content) %></p></blockquote>
     </td>
-    <td><span class="label"><%= link_to 'Show', newt %></span></td>
+    <td><span class="label"><%= link_to 'Details', newt %></span></td>
     <td><span class="label success"><%= link_to 'Edit', edit_newton_path(:id => newt.uniq_id, :secret => newt.uniq_secret) %></span></td>
     <td><span class="label important"><%= link_to 'Destroy', newt, :confirm => 'Are you sure?', :method => :delete %></span></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<% content_for :sidebar_content do %>
-<h2>Actions</h2>
-<%= link_to 'Create a Newt', new_newt_path, :class => 'btn' %>
-<% end %>

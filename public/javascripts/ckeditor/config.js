@@ -46,17 +46,16 @@ CKEDITOR.editorConfig = function( config )
   
   /* Extra plugins */
   // works only with en, ru, uk locales
-  config.extraPlugins = "embed,attachment";
-
-	config.autoGrow_onStartup = true;
+  config.extraPlugins = "embed,attachment,autogrow";
+  //config.autoGrow_maxHeight = 800;
   
   /* Toolbars */
   config.toolbar = 'Simple';
   
   config.toolbar_Simple =
     [
-        ['Source','-','Preview'], ['Bold','Italic','Underline','Strike'], ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','HorizontalRule'], 
-				['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Undo','Redo','-','SelectAll','RemoveFormat'], ['Maximize'], '/',
-        ['Styles','Format'], ['TextColor'], ['Link','Unlink','Anchor'], ['Image', 'Attachment', 'Embed'],
+        ['Source','-','Preview'], ['Bold','Italic','Underline','Strike','-','TextColor'], ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','HorizontalRule'], 
+				['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'], ['Undo','Redo','-','SelectAll','RemoveFormat'], ['Maximize'],
+        ['Styles','Format'], ['Link','Unlink','Anchor'], ['Image', 'Attachment', 'Embed'],
     ];
 };

@@ -33,17 +33,23 @@
         <!-- form action="" class="pull-left">
           <input type="text" placeholder="Search">
         </form -->
+        <% if current_user.present? %>
         <ul class="nav secondary-nav">
           <li class="dropdown" data-dropdown="dropdown" >
             <a class="dropdown-toggle" href="#">My Account</a>
             <ul class="dropdown-menu">
-              <li><a href="#">My Newts</a></li>
-              <li><a href="#">Account Settings</a></li>
+              <li><a href="<%= users_dashboard_path(current_user.id) %>">My Newts</a></li>
+              <li><a href="<%= users_dashboard_path(current_user.id) %>">Account Settings</a></li>
               <li class="divider"></li>
-              <li><a href="#">Log Out</a></li>
+              <li><a href="<%= destroy_user_session_path %>">Log Out</a></li>
             </ul>
           </li>
         </ul>
+        <% else %>
+        <ul class="nav secondary-nav">
+          <li><a href="<%= new_user_session_path %>">Log In</a></li>
+        </ul>
+        <% end %>
       </div>
     </div><!-- /topbar-inner -->
   </div><!-- .topbar -->

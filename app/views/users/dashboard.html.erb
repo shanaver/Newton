@@ -1,0 +1,24 @@
+<h1>My Newts</h1>
+
+<table class="zebra-striped">
+  <tr>
+    <th>ID</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @newts.each do |newt| %>
+  <tr>
+    <td><%= newt.uniq_id %></td>
+    <td>
+      <small><%= newt.title %></small>
+      <blockquote><p><%= raw(newt.content) %></p></blockquote>
+    </td>
+    <td><span class="label"><%= link_to 'Details', newt %></span></td>
+    <td><span class="label success"><%= link_to 'Edit', edit_newton_path(:id => newt.uniq_id, :secret => newt.uniq_secret) %></span></td>
+    <td><span class="label important"><%= link_to 'Destroy', newt, :confirm => 'Are you sure?', :method => :delete %></span></td>
+  </tr>
+<% end %>
+</table>

@@ -1,11 +1,10 @@
 class NewtsController < ApplicationController
 
   def index
-    @newts = Newt.all
+    @newt = Newt.new
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @newts }
     end
   end
 
@@ -32,6 +31,8 @@ class NewtsController < ApplicationController
   def new
     @newt = Newt.new
 
+    get_email
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @newt }
@@ -49,7 +50,15 @@ class NewtsController < ApplicationController
     
     user = User.find_by_email(params[:user][:email])
     if user.blank?
-      user = User.create_temprary_account(params[:user])
+      
+      if user = User.new(params[:user]).valid?
+        user = User.create_temprary_account(user)
+      else
+        @newt.errors.add 'Email', "Address must be valid"
+        render :action => "new"
+        return
+      end
+      
     end
     
     respond_to do |format|
@@ -58,6 +67,7 @@ class NewtsController < ApplicationController
         format.html { redirect_to(@newt, :notice => 'Newt was successfully created.') }
         format.xml  { render :xml => @newt, :status => :created, :location => @newt }
       else
+        get_email
         format.html { render :action => "new" }
         format.xml  { render :xml => @newt.errors, :status => :unprocessable_entity }
       end
@@ -85,6 +95,16 @@ class NewtsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(newts_url) }
       format.xml  { head :ok }
+    end
+  end
+
+  def get_email
+    if current_user
+      @email = current_user.email
+    elsif (params[:user][:email] rescue false)
+      @email = params[:user][:email]
+    else
+      @email = nil
     end
   end
 end

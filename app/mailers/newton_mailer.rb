@@ -1,7 +1,7 @@
 class NewtonMailer < ActionMailer::Base
   
-  default :from => "Newton <donotreply@donately.com>", #change this once we set a new one up at postmark
-  :reply_to => 'donotreply@donately.com',
+  default :from => "Newton <{Newton::Application.config.postmark_signature}>", 
+  :reply_to => Newton::Application.config.postmark_signature,
   :tag     => 'newton'
   
   def content_editor_link(user, newt)

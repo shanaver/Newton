@@ -20,4 +20,10 @@ class Newt < ActiveRecord::Base
     NewtonMailer.content_editor_link(user, newt).deliver
   end
 
+  class << self  
+    def owner(newt)
+      user_newt = UserNewt.find(:first, :conditions => ['newt_id = ? AND owner = ?', newt.id, true])
+      newt_owner = User.find(user_newt.user_id)
+    end
+  end
 end

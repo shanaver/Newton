@@ -2,6 +2,7 @@ class NewtsController < ApplicationController
 
   def index
     @newt = Newt.new
+    get_email
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,7 +31,6 @@ class NewtsController < ApplicationController
 
   def new
     @newt = Newt.new
-
     get_email
 
     respond_to do |format|
@@ -44,26 +44,50 @@ class NewtsController < ApplicationController
     usernewt = UserNewt.find_by_newt_id(@newt.id)
     @user = User.find(usernewt.user_id)
   end
+  
+  def new_or_existing?(email)
+    user = User.find_by_email(email)
+    unless user.present?
+      user = User.create_temprary_account({:email => email})
+      if user.valid?
+        user.save
+      else
+        @newt.errors.add 'Email', "Address must be valid"
+        render :action => "new"
+        return false
+      end
+    end
+    user
+  end
 
   def create
     @newt = Newt.new(params[:newt])
     
-    user = User.find_by_email(params[:user][:email])
-    if user.blank?
-      
-      if user = User.new(params[:user]).valid?
-        user = User.create_temprary_account(user)
-      else
-        @newt.errors.add 'Email', "Address must be valid"
-        render :action => "new"
-        return
+    user = ( current_user.present? ? current_user : new_or_existing?(params[:user][:email]) )
+    unless user.present? 
+      return
+    end
+    
+    if params[:add_editor].present?
+      additional = []
+      params[:add_editor].each do |e|
+        add_user = new_or_existing?(e)
+        if add_user
+          additional << add_user
+        else
+          return
+        end
       end
-      
     end
     
     respond_to do |format|
       if @newt.save
-        usernewt = UserNewt.new(:user_id => user.id, :newt_id => @newt.id).save
+        usernewt = UserNewt.new(:user_id => user.id, :newt_id => @newt.id, :owner => true).save
+        if additional.present?
+          additional.each do |a|
+            UserNewt.new(:user_id => a.id, :newt_id => @newt.id).save
+          end
+        end
         @newt.send_content_editor_link_mail(user, @newt)
         format.html { redirect_to(@newt, :notice => 'Newt was successfully created.') }
         format.xml  { render :xml => @newt, :status => :created, :location => @newt }
@@ -107,5 +131,9 @@ class NewtsController < ApplicationController
     else
       @email = nil
     end
+  end
+  
+  def add_editor_field
+    render :layout => false
   end
 end

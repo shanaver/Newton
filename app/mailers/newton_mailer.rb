@@ -1,6 +1,6 @@
 class NewtonMailer < ActionMailer::Base
   
-  default :from => "Newton <{Newton::Application.config.postmark_signature}>", 
+  default :from => "Newton <" + Newton::Application.config.postmark_signature + ">", 
   :reply_to => Newton::Application.config.postmark_signature,
   :tag     => 'newton'
   

@@ -2,15 +2,20 @@
 <script>
   function add_lorem(){
     var lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel est leo. Praesent in justo quis tortor sollicitudin hendrerit sit amet vel quam. Nulla sit amet tellus et dui faucibus fermentum.\n';
-    var textarea = $("#newt_content");
+    var textarea = jQuery("#newt_content");
     var content = textarea.val();
     textarea.val( content + lorem );
     return false;
   }
-  $(document).ready(function() {
-    $('#newt_content').ckeditor();
-    $('#lorem').click(function() {
+  jQuery(document).ready(function() {
+    jQuery('#newt_content').ckeditor();
+    jQuery('#lorem').click(function() {
       add_lorem();
+    });
+    jQuery('#add_editor').bind("click", function(event) {
+      jQuery.get('<%= add_editor_field_url %>', function(data) {
+        jQuery('#new_editors').append(data);
+      });
     });
   });
 </script>
@@ -46,16 +51,28 @@
       <span class="help-block"><span class="label"><a href="javascript: void(0);" id="lorem">Add Lorem Ipsum</a></span></span>
     </div>
   </div>
-  <div class="clearfix">
-    <label for="editor">Editor</label><br />
-    <div class="input">
-      <div class="input-prepend">
-        <span class="add-on">@</span>
-        <%= text_field :user, :email, :value => @email %><br/>
-        <span class="help-inline">This email address will receive an email with a link to edit this content</span>
+  <% if current_user.present? -%>
+    <% if (Newt.owner(@newt) == current_user rescue false) -%>
+      <%= hidden_field :user, :email, :value => @email %>
+      <div class="clearfix">
+        <div class="input">
+          <span class="label warning"><a href="#" id="add_editor">Add Another Editor</a></span>
+        </div>
+      </div>
+      <div id="new_editors"></div>
+    <% end -%>
+  <% else -%>
+    <div class="clearfix">
+      <label for="editor">Editor</label><br />
+      <div class="input">
+        <div class="input-prepend">
+          <span class="add-on">@</span>
+          <%= text_field :user, :email, :value => @email %><br/>
+          <span class="help-inline">This email address will receive an email with a link to edit this content</span>
+        </div>
       </div>
     </div>
-  </div>
+  <% end -%>
   <div class="actions">
     <%= link_to 'Cancel', @newt, :class => 'btn secondary' %>
     <%= f.submit 'Submit', :class => 'btn primary' %>

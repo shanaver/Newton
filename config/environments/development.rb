@@ -15,7 +15,10 @@ Newton::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  
+  config.action_mailer.delivery_method   = :postmark
+  config.action_mailer.postmark_settings = { :api_key => "2cd9bf00-d86f-436f-a3b1-1e4401904618" }
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

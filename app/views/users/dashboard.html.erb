@@ -13,8 +13,10 @@
   <tr>
     <td><%= newt.uniq_id %></td>
     <td>
-      <small><%= newt.title %></small>
-      <blockquote><p><%= raw(newt.content) %></p></blockquote>
+      <div id="newt-content">
+        <small><%= newt.title %></small>
+        <blockquote><p><%= raw(newt.content) %></p></blockquote>
+      </div>
     </td>
     <td><span class="label"><%= link_to 'Details', newt %></span></td>
     <td><span class="label success"><%= link_to 'Edit', edit_newton_path(:id => newt.uniq_id, :secret => newt.uniq_secret) %></span></td>

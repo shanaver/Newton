@@ -3,6 +3,7 @@
 <head>
   <title>Newton</title>
   <link rel="shortcut icon" type="image/png" href="/images/newt.png">
+  <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 
   <%= javascript_include_tag 'jquery.min' %>
@@ -19,7 +20,7 @@
   <%= yield(:javascript_includes) %>
 </head>
 
-<body onload="prettyPrint()">
+<body onload="prettyPrint()" class="<%= params[:controller] + '_' + params[:action] %>">
   
   <div data-dropdown="dropdown" class="topbar">
     <div class="topbar-inner" data-scrollspy="scrollspy">

@@ -64,6 +64,7 @@ class NewtsController < ApplicationController
     respond_to do |format|
       if @newt.save
         usernewt = UserNewt.new(:user_id => user.id, :newt_id => @newt.id).save
+        @newt.send_content_editor_link_mail(user, @newt)
         format.html { redirect_to(@newt, :notice => 'Newt was successfully created.') }
         format.xml  { render :xml => @newt, :status => :created, :location => @newt }
       else
@@ -93,7 +94,7 @@ class NewtsController < ApplicationController
     @newt.destroy
 
     respond_to do |format|
-      format.html { redirect_to(newts_url) }
+      format.html { redirect_to(users_dashboard_url) }
       format.xml  { head :ok }
     end
   end

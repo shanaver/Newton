@@ -15,5 +15,9 @@ class Newt < ActiveRecord::Base
   def generate_title
      self.title = ActionController::Base.helpers.strip_tags(content)[0..30] if self.title.blank?
   end 
+  
+  def send_content_editor_link_mail(user, newt)
+    NewtonMailer.content_editor_link(user, newt).deliver
+  end
 
 end

@@ -36,6 +36,9 @@ Newton::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  
+  config.action_mailer.delivery_method   = :postmark
+  config.action_mailer.postmark_settings = { :api_key => "2cd9bf00-d86f-436f-a3b1-1e4401904618" }
 
   # Enable threaded mode
   # config.threadsafe!

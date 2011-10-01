@@ -1,11 +1,12 @@
 class Newt < ActiveRecord::Base
-  has_many :UserNewts, :dependent => :destroy
-  has_many :Users, :through => :UserNewts
+  has_many :user_newts, :dependent => :destroy
 
   before_create :generate_random_ids, :generate_title
 
   validates :content, :presence => true
   #validates :uniq_id, :uniqueness => true, :presence => true
+  
+  scope :count_editors, joins(:user_newts).count() 
 
   def generate_random_ids
      self.uniq_id = SecureRandom.hex(5)

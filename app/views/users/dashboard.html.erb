@@ -1,15 +1,14 @@
 <h1>My Newts</h1>
 
-<% if @newts.present? %>
+<% if current_user.newts.present? %>
   <table class="zebra-striped">
     <tr>
       <th>ID</th>
       <th>Content</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Actions</th>
+      <th>Other Editors</th>
     </tr>
-  <% @newts.each do |newt| %>
+  <% current_user.newts.each do |newt| %>
     <tr>
       <td><%= newt.uniq_id %></td>
       <td>
@@ -18,11 +17,18 @@
           <blockquote><p><%= raw(newt.content) %></p></blockquote>
         </div>
       </td>
-      <td><span class="label"><%= link_to 'Details', newt %></span></td>
-      <td><span class="label success"><%= link_to 'Edit', edit_newton_url(:id => newt.uniq_id, :secret => newt.uniq_secret) %></span></td>
       <td>
+        <span class="label success"><%= link_to 'Edit', edit_newton_url(:id => newt.uniq_id, :secret => newt.uniq_secret) %></span>
+        <span class="label"><%= link_to 'Details', newt %></span>
         <% if Newt.owner(newt) == current_user %>
         <span class="label important"><%= link_to 'Destroy', newt, :confirm => 'Are you sure?', :method => :delete %></span>
+        <% end %>
+      </td>
+      <td>
+        <% newt.user_newts.each do |u| %>
+          <% unless u.owner %>
+            <small><%= u.user.email %></small> 
+          <% end %>
         <% end %>
       </td>
     </tr>

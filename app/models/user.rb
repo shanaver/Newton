@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :UserNewts
-  has_many :Newts, :through => :UserNewts
+  has_many :user_newts
+  has_many :newts, :through => :user_newts
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   
   validates :email, :uniqueness => true, :presence => true
   validates_format_of :email, :with => /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
+    
+  scope :with_newts_owned, joins(:newts).where('user_newts.owner = ?', true) 
   
   class << self  
     def get_newts

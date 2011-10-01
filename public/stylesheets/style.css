@@ -1,5 +1,5 @@
 body {padding-top: 60px;}
-.users_dashboard table #newt-content {max-height: 200px; overflow:hidden; }
+.users_dashboard table #newt-content {max-height: 75px; overflow:hidden; }
 
 span.label a {color:#fff;}
 

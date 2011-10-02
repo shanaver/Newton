@@ -25,7 +25,7 @@ class Newt < ActiveRecord::Base
   class << self  
     def owner(newt)
       user_newt = UserNewt.find(:first, :conditions => ['newt_id = ? AND owner = ?', newt.id, true])
-      newt_owner = User.find(user_newt.user_id)
+      newt_owner = (User.find(user_newt.user_id) rescue false)
     end
   end
 end

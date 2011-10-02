@@ -5,12 +5,14 @@
     <tr>
       <th>ID</th>
       <th>Content</th>
+      <th>Editors</th>
+      <th>Locations</th>
+      <th>Requests</th>
       <th>Actions</th>
-      <th>Other Editors</th>
     </tr>
   <% current_user.newts.each do |newt| %>
     <tr>
-      <td><%= newt.uniq_id %></td>
+      <td><small><%= newt.uniq_id %></small></td>
       <td>
         <div id="newt-content">
           <small><%= newt.title %></small>
@@ -18,17 +20,19 @@
         </div>
       </td>
       <td>
+        <%= newt.user_newts.count %>
+      </td>
+      <td>
+        <%= newt.locations.count %>
+      </td>
+      <td>
+        <%= newt.locations.sum(:request_count) %>
+      </td>
+      <td>
         <span class="label success"><%= link_to 'Edit', edit_newton_url(:id => newt.uniq_id, :secret => newt.uniq_secret) %></span>
         <span class="label"><%= link_to 'Details', newt %></span>
         <% if Newt.owner(newt) == current_user %>
         <span class="label important"><%= link_to 'Destroy', newt, :confirm => 'Are you sure?', :method => :delete %></span>
-        <% end %>
-      </td>
-      <td>
-        <% newt.user_newts.each do |u| %>
-          <% unless u.owner %>
-            <small><%= u.user.email %></small> 
-          <% end %>
         <% end %>
       </td>
     </tr>

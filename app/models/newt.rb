@@ -1,5 +1,6 @@
 class Newt < ActiveRecord::Base
   has_many :user_newts, :dependent => :destroy
+  has_many :locations, :dependent => :destroy
 
   before_create :generate_random_ids, :generate_title
 

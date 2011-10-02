@@ -51,6 +51,22 @@
       <span class="help-block"><span class="label"><a href="javascript: void(0);" id="lorem">Add Lorem Ipsum</a></span></span>
     </div>
   </div>
+  
+<% if @newt.user_newts.count > 1 %>
+  <div class="clearfix">
+    <%= f.label 'Editors' %>
+    <div class="input">
+      <ul>
+      <% @newt.user_newts.each do |u| %>
+        <% if u.user.id != current_user.id %>
+        <li><%= raw(u.user.email) %> <span class="label important"><%= link_to 'Remove', remove_editor_url(:id => @newt.uniq_id, :secret => @newt.uniq_secret, :editor => u.user.id), :confirm => 'Are you sure?', :method => :delete %></span></li>
+        <% end %>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>  
+  
   <% if current_user.present? -%>
     <% if (Newt.owner(@newt) == current_user rescue false) || @newt.id.blank? -%>
       <%= hidden_field :user, :email, :value => @email %>

@@ -18,8 +18,23 @@ class NewtsController < ApplicationController
     end
   end
   
+  def remove_editor
+    @newt = Newt.find_by_uniq_id(params[:id])
+    @editor = UserNewt.first(:conditions => ['user_id = ? AND newt_id = ?', params[:editor], @newt.id])
+    @editor.destroy
+
+    redirect_to edit_newton_url(:id => @newt.uniq_id, :secret => @newt.uniq_secret)
+  end  
+  
   def remote
     @newt = Newt.find_by_uniq_id(params[:id])
+        
+    location = Location.find_by_newt_id(@newt.id)
+    if location.present?
+      location.update_attributes(:request_count => (location.request_count.to_i + 1))
+    else
+      location = Location.new({:newt_id => @newt.id, :ip => request.remote_ip, :url => params[:url], :page_title => params[:title], :request_count => 1}).save
+    end
 
     respond_to do |format|
       #format.html # show.html.erb
@@ -101,9 +116,26 @@ class NewtsController < ApplicationController
 
   def update
     @newt = Newt.find(params[:id])
+    
+    if params[:add_editor].present?
+      additional = []
+      params[:add_editor].each do |e|
+        add_user = new_or_existing?(e)
+        if add_user
+          additional << add_user
+        else
+          return
+        end
+      end
+    end
 
     respond_to do |format|
       if @newt.update_attributes(params[:newt])
+        if additional.present?
+          additional.each do |a|
+            UserNewt.new(:user_id => a.id, :newt_id => @newt.id).save
+          end
+        end
         format.html { redirect_to(@newt, :notice => 'Newt was successfully updated.') }
         format.xml  { head :ok }
       else

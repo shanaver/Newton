@@ -15,6 +15,7 @@ function newt_load(o){
     cache: true,
     type: "GET",
     crossDomain: true,
+    data: {id:n, url:window.location.href, title:document.title},
     dataType: 'jsonp',
     accepts: { all: "*/*" },
     success: function(c){

@@ -1,5 +1,20 @@
+<% content_for :javascript_includes do %>
+<script>
+  jQuery(document).ready(function() {
+            $(function () {
+              $("a[rel=twipsy]").twipsy({
+                live: true,
+                placement: 'right'
+              })
+            })
+  });
+</script>
+<% end %>
 
 <h2><%= @newt.title %></h2>
+
+<%= link_to('Edit', edit_newton_url(@newt.uniq_id, :secret => @newt.uniq_secret), :class => 'btn primary topright') %>
+<%= link_to('Back to List', users_dashboard_url(current_user.id), :class => 'btn secondary topright') %>
 
 <p>
   <h3>ID</h3>
@@ -12,10 +27,31 @@
   <pre class="prettyprint">
     <%= '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>' %>
     <%= '<script src="' %><%= get_newton_script_url %><%= '" type="text/javascript"></script>' %>
-    <%= '<div id="newt-' %><%= @newt.uniq_id %><%= '"></div>' %>
+    <%= '<div id="newt-' %><%= @newt.uniq_id %><%= '"></div>' -%>
   </pre>
 </p>
 
+<% if @newt.user_newts.count > 1 %>
+<p>
+<h3>Editors</h3>
+<ul>
+<% @newt.user_newts.each do |u| %>
+  <% if u.user.id != current_user.id %>
+  <li><%= raw(u.user.email) %></li>
+  <% end %>
+<% end %>
+</ul>
+<% end %>
+
+<% if @newt.locations.count >= 1 %>
+<p>
+<h3>Locations</h3>
+<ul id="locations">
+<% @newt.locations.each do |l| %>
+  <li>The page, <a rel="twipsy" href="<%= l.url -%>" data-original-title="<%= l.url -%>"><%= l.page_title.present? ? l.page_title : 'Unknown' -%></a>, requested this newt <%= l.request_count -%> times, most recently at <%= l.updated_at.to_s(:long) -%></li>
+<% end %>
+</ul>
+<% end %>
 
 <p>
   <h3>Here's your glorious content, by the way</h3>

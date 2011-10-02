@@ -1,8 +1,14 @@
 body {padding-top: 60px;}
+
 .users_dashboard table #newt-content {max-height: 75px; overflow:hidden; }
 
-span.label a {color:#fff;}
+span.label {width:100px;}
+span.label a {color:#fff;width:100px;}
 
 td blockquote {margin-top:10px;}
 
 #newt {border:1px solid #bebebe;padding:6px;color:#666;}
+
+body.newts_show .topright {float:right;position:relative;top:-20px;margin-left:20px;}
+
+body.newts_edit ul {list-style-type:none}

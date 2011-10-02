@@ -29,7 +29,7 @@ class NewtsController < ApplicationController
   def remote
     @newt = Newt.find_by_uniq_id(params[:id])
         
-    location = Location.find_by_newt_id(@newt.id)
+    location = Location.first(:conditions => ['newt_id = ? AND url = ?', @newt.id, params[:url]])
     if location.present?
       location.update_attributes(:request_count => (location.request_count.to_i + 1))
     else

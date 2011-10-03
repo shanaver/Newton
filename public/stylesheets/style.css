@@ -1,4 +1,4 @@
-body {padding-top: 60px;}
+body {padding-top: 40px;}
 
 .users_dashboard table #newt-content {max-height: 75px; overflow:hidden; }
 
@@ -12,3 +12,7 @@ td blockquote {margin-top:10px;}
 body.newts_show .topright {float:right;position:relative;top:-20px;margin-left:20px;}
 
 body.newts_edit ul {list-style-type:none}
+
+#secondary_nav {width:600px;margin:0 auto;}
+
+.pills a:hover {background-color:#333;}

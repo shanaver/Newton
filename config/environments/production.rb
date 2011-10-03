@@ -39,7 +39,7 @@ Newton::Application.configure do
   
   config.action_mailer.delivery_method   = :postmark
   config.action_mailer.postmark_settings = { :api_key => "2cd9bf00-d86f-436f-a3b1-1e4401904618" }
-  config.postmark_signature = 'donotreply@donately.com' #change this once we set a new one up at postmark
+  config.postmark_signature = 'donotreply@newtonapp.com' #change this once we set a new one up at postmark
 
   # Enable threaded mode
   # config.threadsafe!

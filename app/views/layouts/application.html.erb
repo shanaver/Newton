@@ -22,14 +22,13 @@
 
 <body onload="prettyPrint()" class="<%= params[:controller] + '_' + params[:action] %>">
   
-  <div data-dropdown="dropdown" class="topbar">
-    <div class="topbar-inner" data-scrollspy="scrollspy">
+  <div class="topbar">
+    <div class="topbar-inner">
       <div class="container">
         <h3><a href="/">NEWTON</a></h3>
         <ul class="nav">
           <li class="active"><a href="/">Home</a></li>
           <li><%= link_to 'Create a Newt', new_newt_path %></li>
-          <%= yield(:nav_action_buttons) %>
         </ul>
         <!-- form action="" class="pull-left">
           <input type="text" placeholder="Search">
@@ -55,6 +54,14 @@
     </div><!-- /topbar-inner -->
   </div><!-- .topbar -->
   
+  <% if :nav_action_buttons -%>
+  <div id="secondary_nav">
+    <ul class="pills">
+    <%= yield(:nav_action_buttons) %>
+    </ul>
+  </div>
+  <% end -%>
+    
 <div class="container"> 
   
   <div class="content">

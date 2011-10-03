@@ -1,6 +1,6 @@
 <h1>My Newts</h1>
 
-<% if current_user.newts.present? %>
+<% if @newts.present? %>
   <table class="zebra-striped">
     <tr>
       <th>ID</th>
@@ -10,7 +10,7 @@
       <th>Requests</th>
       <th>Actions</th>
     </tr>
-  <% current_user.newts.each do |newt| %>
+  <% @newts.each do |newt| %>
     <tr>
       <td><small><%= newt.uniq_id %></small></td>
       <td>
@@ -38,6 +38,7 @@
     </tr>
   <% end %>
   </table>
+  <%= paginate @newts %>
 <% else %>
   <h6>You don't have any yet, why don't you make one?</h6>
   <%= link_to 'Create a Newt', new_newt_url, :class => 'btn success' %>

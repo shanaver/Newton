@@ -11,6 +11,10 @@ gem 'devise'
 
 gem 'postmark-rails'
 
+gem 'kaminari'
+
+gem 'koala', "~> 1.2.0"
+
 gem 'ckeditor'#, '3.6.2' :git => 'https://github.com/galetahub/ckeditor.git'
 
 gem 'paperclip'

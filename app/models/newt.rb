@@ -8,7 +8,7 @@ class Newt < ActiveRecord::Base
   #validates :uniq_id, :uniqueness => true, :presence => true
   
   scope :count_editors, joins(:user_newts).count() 
-
+  
   def generate_random_ids
      self.uniq_id = SecureRandom.hex(5)
      self.uniq_secret = SecureRandom.hex(12)

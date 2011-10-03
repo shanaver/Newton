@@ -16,3 +16,5 @@ body.newts_edit ul {list-style-type:none}
 #secondary_nav {width:600px;margin:0 auto;}
 
 .pills a:hover {background-color:#333;}
+
+.pagination {margin:0 auto;}

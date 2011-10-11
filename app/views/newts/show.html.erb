@@ -52,7 +52,7 @@
 <p>
 <h3>Locations</h3>
 <ul id="locations">
-<% @newt.locations.each do |l| %>
+<% @newt.locations.order("updated_at DESC").each do |l| %>
   <li>The page, <a rel="twipsy" href="<%= l.url -%>" data-original-title="<%= l.url -%>"><%= l.page_title.present? ? l.page_title : 'Unknown' -%></a>, requested this newt <%= l.request_count -%> times, most recently at <%= l.updated_at.to_s(:long) -%></li>
 <% end %>
 </ul>
